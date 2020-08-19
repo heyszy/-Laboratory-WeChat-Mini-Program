@@ -1,0 +1,33 @@
+<!--pages/main/mian.wxml-->
+<demo-block title="实时数据">
+  <van-cell-group>
+    <van-cell 
+    is-link
+    center
+    title="温度"  
+    size="large"
+    url="/pages/tempereture/temperature"
+    >
+      <van-tag type="success" size="large">{{ temperature }}℃</van-tag>
+    </van-cell>
+    <van-cell 
+    is-link
+    center
+    title="湿度"  
+    size="large"
+    url="/pages/humidity/humidity"
+    >
+      <van-tag type="primary" size="large">{{ humidity }}%</van-tag>
+    </van-cell>
+  </van-cell-group>
+</demo-block>
+
+<demo-block title="控制开关">
+  <van-cell center title="温度计"  size="large" >
+    <van-switch class="switch" checked="{{ checked1 }}" bind:change="onChange1" size="45rpx" active-color="#07c160"/>
+  </van-cell>
+  <van-cell center title="湿度计"  size="large" >
+    <van-switch class="switch" checked="{{ checked2 }}" bind:change="onChange2" size="45rpx" active-color="#07c160"/>
+  </van-cell>
+</demo-block>
+<van-button type="primary" size="large" bind:click="upload">Upload</van-button>

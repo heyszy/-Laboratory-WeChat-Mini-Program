@@ -1,0 +1,42 @@
+ {
+  "pages": [
+    "pages/main/mian",
+    "pages/index/index",
+    "pages/i/i",
+    "pages/monitor/monitor"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "TestApp",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/main/mian",
+      "text": "Status",
+      "iconPath": "images/监看服务.png",
+      "selectedIconPath": "images/监看服务.png"
+    }, {
+      "pagePath": "pages/index/index",
+      "text": "Connect",
+      "iconPath": "images/纸飞机.png",
+      "selectedIconPath": "images/纸飞机.png"
+    }],
+    "backgroundColor": "#f7f8fa",
+    "borderStyle": "white"
+  },
+  "usingComponents": {
+    "demo-block": "./components/demo-block/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-switch": "@vant/weapp/switch/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-notify": "@vant/weapp/notify/index",
+    "van-panel": "@vant/weapp/panel/index"
+  },
+  "sitemapLocation": "sitemap.json"
+}

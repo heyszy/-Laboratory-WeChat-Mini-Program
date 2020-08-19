@@ -1,0 +1,18 @@
+/* pages/main/mian.wxss */
+.title {
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.switch{
+  position:absolute;
+    top:20rpx;
+    bottom:0;
+    left:0;
+    right:40rpx;
+    margin:auto;
+}
+
+.van-tag{
+  width: 50rpx;
+}

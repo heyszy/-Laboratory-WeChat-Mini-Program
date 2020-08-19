@@ -1,0 +1,16 @@
+
+<view class="data" hover-class="none" hover-stop-propagation="false">
+	<van-cell-group title="实时数据">
+		<van-cell title="温度" value="{{temp}}" />
+		<van-cell title="A气体浓度" value="{{gasA}}"/>
+		<van-cell title="B气体浓度" value="{{gasB}}"/>
+	</van-cell-group>
+</view>	
+
+<view class="monitor">
+  <video 
+    id="monitor"
+    src="http://hls01open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.hd.m3u8"
+    picture-in-picture-mode="{{['push', 'pop']}}"
+  ></video>
+</view>
