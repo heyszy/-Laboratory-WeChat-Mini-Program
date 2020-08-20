@@ -1,9 +1,12 @@
 
+<style>
+  .x
+</style>
 <view class="data" hover-class="none" hover-stop-propagation="false">
 	<van-cell-group title="实时数据">
-		<van-cell title="温度" value="{{temp}}" />
-		<van-cell title="A气体浓度" value="{{gasA}}"/>
-		<van-cell title="B气体浓度" value="{{gasB}}"/>
+		<van-cell title="温度" value="{{temp}}" style="--cell-value-color:{{tempcolor}}"/>
+		<van-cell title="A气体浓度" value="{{gasA}}" style="--cell-value-color:{{gasAcolor}}"/>
+		<van-cell title="B气体浓度" value="{{gasB}}" style="--cell-value-color:{{gasBcolor}}"/>
 	</van-cell-group>
 </view>
 

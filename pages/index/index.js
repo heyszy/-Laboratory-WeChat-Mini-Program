@@ -11,7 +11,10 @@ Page({
     gasA:" ",
     gasB:" ",
     power: true,
-    fireExtinguisher: false
+    fireExtinguisher: false,
+    tempcolor:"",
+    gasAcolor:"",
+    gasBcolor:""
   },
   
 
@@ -27,39 +30,48 @@ Page({
     app.watch(that, {
       temp: function (newVal) {
         console.log("new temp: " + newVal)
-        if(newVal > 120){
-          Dialog.alert({
-            title: '警告',
-            message: '温度超出阈值！',
-            }).then(() => {
-            // on close
-          });
+        if(that.data.temp <= 120 && newVal > 120){
+          that.warning(newVal,that.data.gasA,that.data.gasB);
+          console.log("temp warning" )
         }
-      }
-    })
-    app.watch(that, {
+        if(newVal > 120){
+          that.setData({
+            tempcolor:"red"
+          })
+        }else{
+          that.setData({
+            tempcolor:""
+          })
+        }
+      },
       gasA: function (newVal) {
         console.log("new gasA: " + newVal)
-        if(newVal > 200){
-          Dialog.alert({
-            title: '警告',
-            message: '气体A浓度超出阈值！',
-            }).then(() => {
-            // on close
-          });
+        if(that.data.gasA <= 200 && newVal > 200){
+          that.warning(that.data.temp,newVal,that.data.gasB);
         }
-      }
-    })
-    app.watch(that, {
+        if(newVal > 200){
+          that.setData({
+            gasAcolor:"red"
+          })
+        }else{
+          that.setData({
+            gasAcolor:""
+          })
+        }
+      },
       gasB: function (newVal) {
         console.log("new gasB: " + newVal)
+        if(that.data.gasB <= 300 && newVal > 300){
+          that.warning(that.data.temp,that.data.gasA,newVal);
+        }
         if(newVal > 300){
-          Dialog.alert({
-            title: '警告',
-            message: '气体B浓度超出阈值！',
-            }).then(() => {
-            // on close
-          });
+          that.setData({
+            gasBcolor:"red"
+          })
+        }else{
+          that.setData({
+            gasBcolor:""
+          })
         }
       }
     })
@@ -227,7 +239,65 @@ Page({
       // console.log(that.data.fireExtinguisher)
   },
 
-
+  //阈值报警
+  warning:function(t,a,b){
+    if(t > 120 && a >200 && b > 300){
+      Dialog.alert({
+        title: '警告',
+        message: '温度、气体A、气体B浓度均超出阈值！',
+        }).then(() => {
+        // on close
+      });
+    }
+    else if(t > 120 && a > 200){
+      Dialog.alert({
+        title: '警告',
+        message: '温度、气体A浓度超出阈值！',
+        }).then(() => {
+        // on close
+      });
+    }
+    else if(t > 120 && b > 300){
+      Dialog.alert({
+        title: '警告',
+        message: '温度、气体B浓度超出阈值！',
+        }).then(() => {
+        // on close
+      });
+    }
+    else if(b > 300 && a > 200){
+      Dialog.alert({
+        title: '警告',
+        message: '气体A、气体B浓度超出阈值！',
+        }).then(() => {
+        // on close
+      });
+    }
+    else if(t > 120){
+      Dialog.alert({
+        title: '警告',
+        message: '温度超出阈值！',
+        }).then(() => {
+        // on close
+      });
+    }
+    else if(a > 200){
+      Dialog.alert({
+        title: '警告',
+        message: '气体A浓度超出阈值！',
+        }).then(() => {
+        // on close
+      });
+    }
+    else if(b > 300){
+      Dialog.alert({
+        title: '警告',
+        message: '气体B浓度超出阈值！',
+        }).then(() => {
+        // on close
+      });
+    }
+  },
 
 
 
