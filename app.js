@@ -4,11 +4,11 @@ App({
   onLaunch: function () {
   },
   globalData:{
-    as: "RpcC60IOkAHDLxcN213HnkTsYBeWa8",//AccessKey Secret
-    productKey: "a1rA69pr9HV",
-    deviceName: "a001",
+    as: "*********************",//AccessKey Secret
+    productKey: "***************",
+    deviceName: "************",
     endpoint: "https://iot.cn-shanghai.aliyuncs.com",
-    ai: "LTAI4G3TT17iSEYqCBx2nLF3", //AccessKeyId
+    ai: "********************", //AccessKeyId
     apiVersion: '2018-01-20'
   },
 
