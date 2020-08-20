@@ -1,6 +1,4 @@
-.data{
-  margin-top: 200rpx;
-}
+
 
 .monitor{
   margin-top: 100rpx;

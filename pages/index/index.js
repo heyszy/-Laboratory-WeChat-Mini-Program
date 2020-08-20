@@ -1,5 +1,6 @@
 const aliSdk = require("../../utils/aliIot-sdk.js")
 const app = getApp()
+import Dialog from "../../miniprogram_npm/@vant/weapp/dialog/dialog";
 
 Page({
   /**
@@ -9,15 +10,59 @@ Page({
     temp:" ",
     gasA:" ",
     gasB:" ",
-    openedDevice: false,
-    buttonDisabled: false
+    power: true,
+    fireExtinguisher: false
   },
+  
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    var that = this
+    setInterval(function () {
+      that.loadData();
+    }, 500)
+    //数据监听
+    app.watch(that, {
+      temp: function (newVal) {
+        console.log("new temp: " + newVal)
+        if(newVal > 120){
+          Dialog.alert({
+            title: '警告',
+            message: '温度超出阈值！',
+            }).then(() => {
+            // on close
+          });
+        }
+      }
+    })
+    app.watch(that, {
+      gasA: function (newVal) {
+        console.log("new gasA: " + newVal)
+        if(newVal > 200){
+          Dialog.alert({
+            title: '警告',
+            message: '气体A浓度超出阈值！',
+            }).then(() => {
+            // on close
+          });
+        }
+      }
+    })
+    app.watch(that, {
+      gasB: function (newVal) {
+        console.log("new gasB: " + newVal)
+        if(newVal > 300){
+          Dialog.alert({
+            title: '警告',
+            message: '气体B浓度超出阈值！',
+            }).then(() => {
+            // on close
+          });
+        }
+      }
+    })
   },
 
   /**
@@ -32,10 +77,7 @@ Page({
    */
   onShow: function () {
     // this.loadData()
-    var that = this
-    setInterval(function () {
-      that.loadData();
-    }, 500)
+    
   },
   //通过封装的sdk读取物联网平台数据
   loadData: function () {
@@ -92,12 +134,9 @@ Page({
       })
     } else {
       that.setData({
-        roomTemp: "--",
-        roomHumidity: "--",
-        co2: "--",
-        lightLux: "--",
-        soundDecibel: "--",
-        pm25: "--"
+        temp: "--",
+        gasA: "--",
+        gasB: "--"
       })
     }
   },
@@ -111,19 +150,19 @@ Page({
     return data
   },
 
-  //调用服务改变设备状态
-  changeDeviceStatus: function () {
+  //电源
+  powerchange: function () {
     var that = this
     //防止重复点击
-    that.setData({
-      buttonDisabled: true
-    })
+    // that.setData({
+    //   buttonDisabled: true
+    // })
     
     aliSdk.request({
         Action: "InvokeThingService",
         ProductKey: app.globalData.productKey,
         DeviceName: app.globalData.deviceName,
-        Identifier: that.data.openedDevice ? "CloseDevice" : "OpenDevice",
+        Identifier: that.data.power?"poweroff" : "poweron",
         Args: "{}" //无参服务，所以传空
       }, {
         method: "POST"
@@ -132,7 +171,7 @@ Page({
         console.log("success")
         console.log(res) //查看返回response数据
         that.setData({
-          openedDevice: !that.data.openedDevice
+          power: !that.data.power
         })
       },
       (res) => {
@@ -146,11 +185,60 @@ Page({
       },
       (res) => {
         // console.log("complete")
-        that.setData({
-          buttonDisabled: false
-        })
       })
   },
+
+  //灭火
+  firechange: function () {
+    var that = this
+    //防止重复点击
+    // that.setData({
+    //   buttonDisabled: true
+    // })
+    
+    aliSdk.request({
+        Action: "InvokeThingService",
+        ProductKey: app.globalData.productKey,
+        DeviceName: app.globalData.deviceName,
+        Identifier: that.data.fireExtinguisher?"stopExtinguish" : "startExtinguish",
+        Args: "{}" //无参服务，所以传空
+      }, {
+        method: "POST"
+      },
+      (res) => {
+        console.log("success")
+        console.log(res) //查看返回response数据
+        that.setData({
+          fireExtinguisher: !that.data.fireExtinguisher
+        })
+      },
+      (res) => {
+        console.log("fail")
+        wx.showToast({
+          title: '网络连接失败',
+          icon: 'none',
+          duration: 1000,
+          // complete: () => {}
+        })
+      },
+      (res) => {
+        // console.log("complete")
+      })
+      // console.log(that.data.fireExtinguisher)
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /**
    * 生命周期函数--监听页面隐藏

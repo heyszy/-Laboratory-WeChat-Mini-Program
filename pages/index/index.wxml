@@ -5,7 +5,12 @@
 		<van-cell title="A气体浓度" value="{{gasA}}"/>
 		<van-cell title="B气体浓度" value="{{gasB}}"/>
 	</van-cell-group>
-</view>	
+</view>
+
+<view class="switch" hover-class="none" hover-stop-propagation="false">
+  <van-button id="outfire" type="danger" size="large" bind:click="firechange">{{fireExtinguisher?"停止灭火":"灭火"}}</van-button>
+  <van-button id="interrupt" type="warning" size="large" bind:click="powerchange">{{power?"切断电源":"打开电源"}}</van-button>
+</view>
 
 <view class="monitor">
   <video 
@@ -14,3 +19,5 @@
     picture-in-picture-mode="{{['push', 'pop']}}"
   ></video>
 </view>
+
+<van-dialog id="van-dialog" />

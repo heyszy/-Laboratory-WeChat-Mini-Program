@@ -36,7 +36,8 @@
     "van-field": "@vant/weapp/field/index",
     "van-button": "@vant/weapp/button/index",
     "van-notify": "@vant/weapp/notify/index",
-    "van-panel": "@vant/weapp/panel/index"
+    "van-panel": "@vant/weapp/panel/index",
+    "van-dialog": "@vant/weapp/dialog/index"
   },
   "sitemapLocation": "sitemap.json"
 }
